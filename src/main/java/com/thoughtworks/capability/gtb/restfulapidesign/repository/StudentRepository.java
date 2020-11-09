@@ -33,6 +33,10 @@ public class StudentRepository {
         }
     };
 
+    public List<StudentDto> getStudentList() {
+        return studentList;
+    }
+
     public Integer nextId() {
         return studentList.get(studentList.size()-1).getStudentId()+1;
     }
@@ -59,8 +63,17 @@ public class StudentRepository {
 
     public List<StudentDto> findStudentByName(String name) {
         List<StudentDto> findByNameList = studentList.stream().filter(student -> student.getStudentName().equals(name)).collect(Collectors.toList());
-        if (findByNameList.size()>0) {
+        if (findByNameList.size() > 0) {
             return findByNameList;
+        } else {
+            return null;
+        }
+    }
+
+    public List<StudentDto> findStudentByGender(Gender gender) {
+        List<StudentDto> findByGenderList = studentList.stream().filter(student -> student.getStudentGender().equals(gender)).collect(Collectors.toList());
+        if (findByGenderList.size() > 0) {
+            return findByGenderList;
         } else {
             return null;
         }

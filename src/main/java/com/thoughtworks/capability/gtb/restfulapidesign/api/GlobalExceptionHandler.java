@@ -1,6 +1,7 @@
 package com.thoughtworks.capability.gtb.restfulapidesign.api;
 
 import com.thoughtworks.capability.gtb.restfulapidesign.dto.ErrorResponse;
+import com.thoughtworks.capability.gtb.restfulapidesign.exception.ParamNumNotAllowException;
 import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentNotExistException;
 
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,12 @@ public class GlobalExceptionHandler {
         String message = "学生不存在";
         ErrorResponse error = new ErrorResponse(codeNotFound, message);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(ParamNumNotAllowException.class)
+    public ResponseEntity<ErrorResponse> exceptionHandler(ParamNumNotAllowException exception) {
+        String message = "只允许输入一个参数";
+        ErrorResponse error = new ErrorResponse(codeBadRequest, message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
