@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,14 +48,14 @@ public class StudentController {
         return studentService.findStudent(id);
     }
 
-//    @GetMapping
-//    public List<StudentDto> findStudent (@RequestParam String name) throws StudentNotExistException {
-//        return studentService.findStudent(name);
-//    }
-
     @GetMapping
     public List<StudentDto> getStudentList (@RequestParam(required = false) Gender gender, @RequestParam(required = false) String name)
             throws StudentNotExistException, ParamNumNotAllowException {
         return studentService.getStudentList(gender, name);
+    }
+
+    @PutMapping("/{id}")
+    public StudentDto updateStudent (@PathVariable Integer id, @RequestBody StudentDto studentDto) throws StudentNotExistException  {
+        return studentService.updateStudent(id, studentDto);
     }
 }

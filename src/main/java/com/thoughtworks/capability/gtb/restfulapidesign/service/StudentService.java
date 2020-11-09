@@ -38,13 +38,6 @@ public class StudentService {
         return studentRepository.findStudentById(studentId);
     }
 
-//    public List<StudentDto> findStudent(String studentName) throws StudentNotExistException {
-//        if (studentRepository.findStudentByName(studentName) == null) {
-//            throw new StudentNotExistException();
-//        }
-//        return studentRepository.findStudentByName(studentName);
-//    }
-
     public List<StudentDto> getStudentList(Gender studentGender, String studentName) throws StudentNotExistException, ParamNumNotAllowException {
         if (studentGender != null && studentName != null) {
             throw new ParamNumNotAllowException();
@@ -65,5 +58,12 @@ public class StudentService {
             throw new StudentNotExistException();
         }
         return studentRepository.getStudentList();
+    }
+
+    public StudentDto updateStudent(Integer studentId, StudentDto studentDto) throws StudentNotExistException {
+        if (studentRepository.findStudentById(studentId) == null) {
+            throw new StudentNotExistException();
+        }
+        return studentRepository.updateStudent(studentId, studentDto);
     }
 }

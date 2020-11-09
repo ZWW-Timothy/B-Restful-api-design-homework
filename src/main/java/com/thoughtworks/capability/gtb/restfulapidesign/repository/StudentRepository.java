@@ -78,4 +78,19 @@ public class StudentRepository {
             return null;
         }
     }
+
+    public StudentDto updateStudent(Integer id, StudentDto studentDto) {
+        StudentDto studentToUpdate = findStudentById(id);
+        Integer index = studentList.indexOf(studentToUpdate);
+        if (studentDto.getStudentName() != null) {
+            studentToUpdate.setStudentName(studentDto.getStudentName());
+        }
+        if (studentDto.getStudentGender() != null) {
+            studentToUpdate.setStudentGender(studentDto.getStudentGender());
+        }
+        studentToUpdate.setStudentNote(studentDto.getStudentNote());
+        studentList.remove(index);
+        studentList.add(index, studentToUpdate);
+        return studentToUpdate;
+    }
 }

@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
@@ -18,10 +19,11 @@ public class StudentDto {
     @JsonProperty("id")
     private Integer studentId;
 
-    @NotEmpty(message = "学生名字不为空")
+    @NotEmpty(message = "名字不为空")
     @JsonProperty("name")
     private String studentName;
 
+    @NotNull(message = "性别不为空")
     @JsonProperty("gender")
     private Gender studentGender;
 

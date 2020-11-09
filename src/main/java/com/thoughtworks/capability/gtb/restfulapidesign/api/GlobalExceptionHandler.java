@@ -6,6 +6,7 @@ import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentNotExis
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -19,6 +20,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldError().getDefaultMessage();
+        ErrorResponse error = new ErrorResponse(codeBadRequest, message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ErrorResponse> exceptionHandler(HttpMessageNotReadableException exception) {
+        String message = "性别输入不合法";
         ErrorResponse error = new ErrorResponse(codeBadRequest, message);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
