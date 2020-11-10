@@ -5,9 +5,12 @@ import com.thoughtworks.capability.gtb.restfulapidesign.service.GroupService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +37,8 @@ public class GroupController {
         return groupService.divideGroup();
     }
 
-//    @PutMapping("/{id}")
-//    public GroupDto updateGroupName() {
-//        return groupService.updateGroupName();
-//    }
+    @PutMapping("/{id}")
+    public GroupDto updateGroupName(@PathVariable Integer id, @RequestBody GroupDto groupDto) {
+        return groupService.updateGroupName(id, groupDto);
+    }
 }

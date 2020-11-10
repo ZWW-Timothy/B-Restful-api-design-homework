@@ -7,6 +7,7 @@ import com.thoughtworks.capability.gtb.restfulapidesign.exception.StudentNotExis
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,6 +21,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> exceptionHandler(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldError().getDefaultMessage();
+        ErrorResponse error = new ErrorResponse(codeBadRequest, message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> exceptionHandler(HttpRequestMethodNotSupportedException exception) {
+        String message = "请求方法错误";
         ErrorResponse error = new ErrorResponse(codeBadRequest, message);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }

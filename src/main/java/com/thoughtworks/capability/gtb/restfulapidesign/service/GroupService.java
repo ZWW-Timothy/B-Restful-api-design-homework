@@ -45,8 +45,12 @@ public class GroupService {
             }
             groupRepository.getGroupList().get(groupIndex).setStudentList(studentInGroup);
         }
-        return  groupRepository.getGroupList();
+        return groupRepository.getGroupList();
     }
 
-//    public GroupDto updateGroupName() {}
+    public GroupDto updateGroupName(Integer groupId, GroupDto groupDto) {
+        int groupIndex = groupId - 1;
+        groupRepository.getGroupList().get(groupIndex).setGroupName(groupDto.getGroupName());
+        return groupRepository.getGroupList().get(groupIndex);
+    }
 }
