@@ -6,6 +6,7 @@ import com.thoughtworks.capability.gtb.restfulapidesign.dto.StudentDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -92,5 +93,11 @@ public class StudentRepository {
         studentList.remove(index);
         studentList.add(index, studentToUpdate);
         return studentToUpdate;
+    }
+
+    public List<StudentDto> shuffleStudentList() {
+        List<StudentDto> shuffleStudentList = new ArrayList<>(getStudentList());
+        Collections.shuffle(shuffleStudentList);
+        return shuffleStudentList;
     }
 }
